@@ -1,4 +1,4 @@
-package com.inventory.inventory.util;
+package products.products.util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
