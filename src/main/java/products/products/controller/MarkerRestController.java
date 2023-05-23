@@ -19,7 +19,7 @@ import products.products.service.IMarkerService;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("api/v1/")
+@RequestMapping("/api/v1/")
 public class MarkerRestController {
     @Autowired
     private IMarkerService markerService;
