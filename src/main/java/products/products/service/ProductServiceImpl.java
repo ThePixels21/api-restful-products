@@ -11,10 +11,10 @@ import org.springframework.stereotype.Service;
 
 import products.products.model.Product;
 import products.products.model.Category;
-// import product.products.model.Maker;
+import products.products.model.Marker;
 import products.products.repository.IProductRepository;
 import products.products.repository.ICategoryRepository;
-// import products.products.repository.IMakerRepository;
+import products.products.repository.IMarkerRepository;
 import products.products.util.Util;
 
 @Service
@@ -25,6 +25,9 @@ public class ProductServiceImpl implements IProductService {
 
     @Autowired
     private ICategoryRepository categoryRepository;
+
+    @Autowired
+    private IMarkerRepository makerRepository;
 
     private List<Product> products = new ArrayList<>();
     
@@ -52,20 +55,13 @@ public class ProductServiceImpl implements IProductService {
     public ResponseEntity<List<Product>> saveProduct(Product product, Long categoryId, Long makerId) {
         try {
             Optional<Category> category = categoryRepository.findById(categoryId);
-            if (category.isPresent()) {
+            Optional<Marker> maker = makerRepository.findById(makerId);
+            if (category.isPresent() && maker.isPresent()) {
                 product.setCategory(category.get());
-            } else {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-
-            /*
-            Optional<Maker> maker = makerRepository.findById(makerId);
-            if (maker.isPresent()) {
                 product.setMaker(maker.get());
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
-            */
 
             Product productSaved = productRepository.save(product);
 
@@ -85,20 +81,13 @@ public class ProductServiceImpl implements IProductService {
     public ResponseEntity<List<Product>> updateProduct(Product product, Long categoryId, Long makerId, Long productId) {
         try {
             Optional<Category> category = categoryRepository.findById(categoryId);
-            if(category.isPresent()) {
+            Optional<Marker> maker = makerRepository.findById(makerId);
+            if(category.isPresent() && maker.isPresent()) {
                 product.setCategory(category.get());
-            } else {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-
-            /*
-            Optional<Maker> maker = makerRepository.findById(makerId);
-            if (maker.isPresent()) {
                 product.setMaker(maker.get());
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
-            */
 
             Optional<Product> productSearch = productRepository.findById(productId);
             if(productSearch.isPresent()) {
@@ -106,7 +95,7 @@ public class ProductServiceImpl implements IProductService {
                 productSearch.get().setPrice(product.getPrice());
                 productSearch.get().setPicture(product.getPicture());
                 productSearch.get().setCategory(product.getCategory());
-                // productSearch.get().setMaker(product.getMaker());
+                productSearch.get().setMaker(product.getMaker());
 
                 Product productSaved = productRepository.save(productSearch.get());
 
