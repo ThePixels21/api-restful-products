@@ -39,12 +39,12 @@ public class MarkerRestController {
         return markerService.searchById(id);
     }
 
-    @PutMapping("categories/{id}")
+    @PutMapping("markers/{id}")
     public ResponseEntity<List<Marker>> updateCategory(@RequestBody Marker marker, @PathVariable Long id) {
         return markerService.update(marker, id);
     }
 
-    @DeleteMapping("categories/{id}")
+    @DeleteMapping("markers/{id}")
     public ResponseEntity<List<Marker>> deleteCategory(@PathVariable Long id){
         return markerService.delete(id);
     }
