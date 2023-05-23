@@ -9,6 +9,7 @@ import lombok.Data;
 @Entity
 @Table(name = "product", indexes = @Index(name = "idx_name", columnList = "name", unique = true))
 public class Product {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
