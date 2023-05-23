@@ -19,7 +19,7 @@ import products.products.service.ICategoryService;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/")
 public class CategoryRestController {
     @Autowired
     private ICategoryService categoryService;
