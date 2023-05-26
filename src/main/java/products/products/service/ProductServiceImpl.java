@@ -34,9 +34,9 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public ResponseEntity<List<Product>> searchProduct() {
         try {
-            products = (List<Product>) productRepository.findAll();
-            if(products.size()>0){
-                for (Product p : products) {
+            List<Product> aux = (List<Product>) productRepository.findAll();
+            if(aux.size()>0){
+                for (Product p : aux) {
                     byte[] imageDescompressed = Util.decompressZLib(p.getPicture());
                     p.setPicture(imageDescompressed);
                     this.products.add(p);
